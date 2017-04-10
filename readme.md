@@ -1,11 +1,11 @@
 # password-gen
 
-####Note:
+#### Note:
 For future me, please note that you need xsel on linux :D , and only phone you are doomed :D good job, fucking yourself :), enjoy it !
 
 
 
-####Installation:
+#### Installation:
 ```
 #basic requirements
 npm i
