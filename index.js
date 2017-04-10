@@ -2,6 +2,7 @@ const shajs = require('sha.js')
 const copy = require('to-clipboard')
 const keyphrase = process.argv[2]
 const domain = process.argv[3]
+const encryption = process.argv[4] || 'sha256'
 let messages = [
 `
 <<<<< ERROR >>>>>
@@ -24,7 +25,7 @@ copied to clipboard
 
 
 if (keyphrase && domain) {
-	let pass = shajs('sha512').update(`${keyphrase}${domain}`).digest('base64')
+	let pass = shajs(encryption).update(`${keyphrase}${domain}`).digest('base64')
 
 	console.log(messages[1])
 	console.log(pass)
