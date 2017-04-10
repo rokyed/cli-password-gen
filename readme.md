@@ -14,5 +14,5 @@ npm i
 apt install xsel #if (isLinux && xselMissing)
 
 #how to run it:
-node index.js [keyphrase] [domain]
+node index.js [keyphrase] [domain] [removeSpecialChars{"yes" | ""}] [encryption {"sha256"}]
 ```
