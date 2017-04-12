@@ -11,6 +11,7 @@
   "dependencies": {
     "clipboard": "^1.6.1",
     "copy-to-clipboard": "^3.0.5",
+    "read": "^1.0.7",
     "sha.js": "^2.4.8",
     "to-clipboard": "^0.4.0"
   }

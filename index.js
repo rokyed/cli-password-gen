@@ -1,40 +1,72 @@
 const shajs = require('sha.js')
+const read = require('read')
 const copy = require('to-clipboard')
-const keyphrase = process.argv[2]
-const domain = process.argv[3]
-const removeSpecialChars = process.argv[4] == 'yes'
-const encryption = process.argv[5] || 'sha256'
-let messages = [
-`
-<<<<< ERROR >>>>>
-wrong ammount of parameters.
->>>>> ERROR <<<<<
 
-<<<<< HELP >>>>>
-usability: node index.js [key-phrase] [domain]
->>>>> HELP <<<<<
-`,
-`
-<<<<< HASH >>>>>
-`,
-`
->>>>> HASH <<<<<
-copied to clipboard
-`,
+read({
+	prompt: 'Passphrase:',
+	silent: true
+}, (pErr, passphrase, isPassDefault) => {
+	if (pErr) return console.log(pErr)
 
-]
+	read({
+		prompt: 'Domain:'
+	}, (dErr, domain, isDomainDefault) => {
+		if (dErr) return console.log(dErr)
+
+		read({
+			prompt: 'Encryption:',
+			default: 'sha256'
+		}, (dErr, encryption, isEncryptionDefault) => {
+			if (dErr) return console.log(dErr)
+
+			read({
+				prompt: 'Remove special characters (yes/no):',
+				default: 'no'
+			}, (rscErr, removeSpecialChars, isRSCDefault) => {
+				if (rscErr) return console.log(rscErr)
 
 
-if (keyphrase && domain) {
-	let pass = shajs(encryption).update(`${keyphrase}${domain}`).digest('base64')
+				read({
+					prompt: 'Max length (number or else you are screwed):',
+					default: '100'
+				}, (mlErr, maxLength, isMaxLengthDefault) => {
+					if (mlErr) return console.log(mlErr)
 
-	if (removeSpecialChars)
-		pass = pass.replace(/=|\/|\+/ig, '')
+					read({
+						prompt: 'Digest (base64):',
+						default: 'base64'
+					}, (digErr, digest, isDigestDefault) => {
+						if (digErr) return console.log(digErr)
+						read({
+							prompt: 'Copy password (yes/no):',
+							default: 'yes'
+						}, (cpErr, copyPass, isCopyPassDefault) => {
+							if (cpErr) return console.log(cpErr)
 
-	console.log(messages[1])
-	console.log(pass)
-	console.log(messages[2])
-	copy(pass, (err) => { if (err) console.log(err)})
-} else {
-	console.log(messages[0])
-}
+							read({
+								prompt: 'Show password (yes/no):',
+								default: 'no'
+							}, (spErr, showPass, isShowPassDefault) => {
+								if (spErr) return console.log(spErr)
+
+								let pass = shajs(encryption).update(`${passphrase}${domain}`).digest(digest);
+								let maxLengthNumber = +maxLength
+
+								if (removeSpecialChars == 'yes')
+									pass = pass.replace(/=|\/|\+/ig, '')
+
+								pass = pass.substring(0, maxLengthNumber);
+
+								if (showPass == 'yes')
+									console.log(pass)
+
+								if (copyPass == 'yes')
+									copy(pass, (err) => { if (err) console.log(err)})
+							})
+						})
+					})
+				})
+			})
+		})
+	})
+})
