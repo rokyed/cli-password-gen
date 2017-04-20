@@ -1,6 +1,8 @@
+#!/usr/bin/env node
 const shajs = require('sha.js')
 const read = require('read')
 const copy = require('to-clipboard')
+
 console.log('Welcome to password-gen!\n')
 read({
 	prompt: 'Passphrase:',
