@@ -1,7 +1,7 @@
 const shajs = require('sha.js')
 const read = require('read')
 const copy = require('to-clipboard')
-
+console.log('Welcome to password-gen!\n')
 read({
 	prompt: 'Passphrase:',
 	silent: true
@@ -49,19 +49,22 @@ read({
 							}, (spErr, showPass, isShowPassDefault) => {
 								if (spErr) return console.log(spErr)
 
-								let pass = shajs(encryption).update(`${passphrase}${domain}`).digest(digest);
+								let pass = shajs(encryption).update(`${passphrase}${domain}`).digest(digest)
 								let maxLengthNumber = +maxLength
 
-								if (removeSpecialChars == 'yes')
+								if (removeSpecialChars != 'no')
 									pass = pass.replace(/=|\/|\+/ig, '')
 
-								pass = pass.substring(0, maxLengthNumber);
-
-								if (showPass == 'yes')
+								pass = pass.substring(0, maxLengthNumber)
+								console.log('')
+								if (showPass != 'no')
 									console.log(pass)
 
-								if (copyPass == 'yes')
+								if (copyPass != 'no')
 									copy(pass, (err) => { if (err) console.log(err)})
+
+								console.log('')
+								console.log('Done!')
 							})
 						})
 					})
