@@ -1,5 +1,5 @@
 {
-	"name": "password-gen",
+	"name": "cli-password-gen",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -8,6 +8,10 @@
 	},
 	"bin": {
 		"password-gen": "./index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rokyed/cli-password-gen.git"
 	},
 	"author": "Andrei Bazavan <rokyed@gmail.com>",
 	"license": "ISC",
