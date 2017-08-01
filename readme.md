@@ -10,11 +10,14 @@ What's cool about it? Well we only need to remember the main password not all th
 * xsel (for clipboard access)
 
 ### Installation:
+#### We made changes please see the way we run it now (it's still backwards compatible)
 ```
 npm i -g cli-password-gen
 
 # run
-password-gen
+password-gen #generates the password from preset
+password-confirm #confirms password (good when creating passwords)
+password-store #used to store the password config
 
 # and enjoy :D but don't blame me, it's your own will
 ```
