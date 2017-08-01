@@ -6,11 +6,9 @@ const FileInteraction = require('./file-interaction.js')
 const fi = new FileInteraction()
 const list = fi.list()
 const betterConsole = require('better-console')
+
 console.log('Welcome to password-gen!\n')
 betterConsole.table(list)
-// for (let i = 0; i < list.length; i ++) {
-// 	console.log(`ID: ${i} Domain: ${list[i].domain}  Digest: ${list[i].digest} Encryption:${list[i].encryption}  MaxLength: ${list[i].maxLength}  Show: ${list[i].showPass}  Copy: ${list[i].copyPass}  NoSpecialChars: ${list[i].removeSpecialChars}`)
-// }
 
 read({
 	prompt: 'Passphrase:',
@@ -22,6 +20,9 @@ read({
 		prompt: 'Preset (index):'
 	}, (dErr, preset, isPresetDefault) => {
 		if (dErr) return console.log(dErr)
+
+		if (!list[preset])
+			return console.log('No valid preset.')
 
 		let cfg = fi.get(preset)
 
