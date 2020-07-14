@@ -39,12 +39,16 @@ read({
 
 				pass = pass.substring(0, maxLengthNumber)
 				console.log('')
+				
 				if (cfg.showPass != 'no')
 					console.log(pass)
 
-				if (cfg.copyPass != 'no')
-					copy(pass, (err) => { if (err) console.log(err)})
-
+				if (cfg.copyPass != 'no'){
+					if (fi.isUsingWSL())
+						fi.WSLCopy(pass)
+					else
+						copy(pass, (err) => { if (err) console.log(err)})
+				}
 			})
 		} else {
 			console.log('Passphrase confirm missmatch.')
